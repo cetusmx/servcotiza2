@@ -21,6 +21,6 @@ app.use('/mobileapp', mobileappRoutes);
 app.use('/margenes', margenesRoutes);
 app.use('/inventario', inventarioRoutes);
 
-app.listen(3001, () => {
-    console.log("Corriendo en el puerto 3001")
+app.listen(3003, () => {
+    console.log("Corriendo en el puerto 3003")
 })
