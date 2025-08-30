@@ -8,7 +8,7 @@ router.get("/getclaves", async (req, res) => {
         const rfc = req.query.rfc;
         
         // Ejecuta la consulta y espera a que termine
-        const [rows] = await pool.query('SELECT clave, claveprove FROM claveProveeedorView WHERE rfc=?', [rfc]);
+        const [rows] = await pool.query('SELECT clave, claveprove FROM claveProveeedorView WHERE rfc=? COLLATE utf8mb4_unicode_ci', [rfc]);
         
         // Envía el resultado
         res.send(rows);
