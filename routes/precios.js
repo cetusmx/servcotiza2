@@ -20,7 +20,7 @@ router.get("/getprecios", async (req, res) => {
     }
 });
 
-app.get("/getpreciosall", async (req, res) => {
+router.get("/getpreciosall", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query('SELECT clave, precio, precioIVA, sucursal FROM preciosView ORDER BY clave');
@@ -35,7 +35,7 @@ app.get("/getpreciosall", async (req, res) => {
     }
 });
 
-app.post("/updateListaPrecios", async (req, res) => {
+router.post("/updateListaPrecios", async (req, res) => {
     console.log(req.body);
 
     const data = req.body;
@@ -68,7 +68,7 @@ app.post("/updateListaPrecios", async (req, res) => {
     }
 });
 
-app.post("/insertarLista", async (req, res) => {
+router.post("/insertarLista", async (req, res) => {
     try {
         const data = req.body;
         const queries = [];
@@ -92,7 +92,7 @@ app.post("/insertarLista", async (req, res) => {
     }
 });
 
-app.post("/borrarLista", async (req, res) => {
+router.post("/borrarLista", async (req, res) => {
     try {
         const sucursal = req.query.sucursal;
         

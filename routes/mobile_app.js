@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../database.js'); // Asegúrate de que esta es la ruta correcta a tu archivo db
 
 // Endpoint para obtener un resumen de inventarios
-app.get("/getresumeninventarios", async (req, res) => {
+router.get("/getresumeninventarios", async (req, res) => {
     try {
         const auditor = req.query.auditor;
         console.log(auditor);
@@ -21,7 +21,7 @@ app.get("/getresumeninventarios", async (req, res) => {
     }
 });
 
-app.get("/getauditores", async (req, res) => {
+router.get("/getauditores", async (req, res) => {
     try {
         // Utilizamos el pool de conexiones para ejecutar la consulta de manera asíncrona
         const [rows] = await pool.query('SELECT id, Nombre FROM Auditores ORDER BY Nombre');
@@ -35,7 +35,7 @@ app.get("/getauditores", async (req, res) => {
     }
 });
 
-app.get("/getlineas", async (req, res) => {
+router.get("/getlineas", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query("SELECT DISTINCT linea FROM Productos WHERE linea<>''");
@@ -50,7 +50,7 @@ app.get("/getlineas", async (req, res) => {
     }
 });
 
-app.get("/getnombresinv", async (req, res) => {
+router.get("/getnombresinv", async (req, res) => {
     try {
         const rfc = req.query.rfc; // La variable rfc no se utiliza, puedes eliminarla si quieres
         console.log(rfc);
@@ -68,7 +68,7 @@ app.get("/getnombresinv", async (req, res) => {
     }
 });
 
-app.get("/getresumeninventariosweb", async (req, res) => {
+router.get("/getresumeninventariosweb", async (req, res) => {
     try {
         const auditor = req.query.auditor; // Esta variable no se utiliza en la consulta, puedes eliminarla
         console.log(auditor);
@@ -86,7 +86,7 @@ app.get("/getresumeninventariosweb", async (req, res) => {
     }
 });
 
-app.get("/getresumeninventariosgenerales", async (req, res) => {
+router.get("/getresumeninventariosgenerales", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query('SELECT InventarioID, Ciudad, Almacen, Ubicacion, Lineas, Auditor, Fecha FROM InventarioGenerals');
@@ -101,7 +101,7 @@ app.get("/getresumeninventariosgenerales", async (req, res) => {
     }
 });
 
-app.get("/getresumeninventariosgeneralesaudit", async (req, res) => {
+router.get("/getresumeninventariosgeneralesaudit", async (req, res) => {
     try {
         const auditor = req.query.auditor;
         
@@ -118,7 +118,7 @@ app.get("/getresumeninventariosgeneralesaudit", async (req, res) => {
     }
 });
 
-app.get("/getresumentarjetasini", async (req, res) => {
+router.get("/getresumentarjetasini", async (req, res) => {
     try {
         const auditor = req.query.auditor; // Esta variable no se utiliza en la consulta, puedes eliminarla
         
@@ -135,7 +135,7 @@ app.get("/getresumentarjetasini", async (req, res) => {
     }
 });
 
-app.get("/getresumeninventario", async (req, res) => {
+router.get("/getresumeninventario", async (req, res) => {
     try {
         const { InventarioID, auditor } = req.query;
         // console.log("getResumenInv ", InventarioID, "-", auditor);
@@ -153,7 +153,7 @@ app.get("/getresumeninventario", async (req, res) => {
     }
 });
 
-app.get("/getlineasinvresumen", async (req, res) => {
+router.get("/getlineasinvresumen", async (req, res) => {
     try {
         const { InventarioID, auditor } = req.query;
         // console.log("getLineas ", InventarioID, "-", auditor);
@@ -171,7 +171,7 @@ app.get("/getlineasinvresumen", async (req, res) => {
     }
 });
 
-app.get("/getproductosporlineaeinv", async (req, res) => {
+router.get("/getproductosporlineaeinv", async (req, res) => {
     try {
         const { InventarioID, Linea, auditor } = req.query;
 
@@ -188,7 +188,7 @@ app.get("/getproductosporlineaeinv", async (req, res) => {
     }
 });
 
-app.get("/getproductoscontadosporauditoreinv", async (req, res) => {
+router.get("/getproductoscontadosporauditoreinv", async (req, res) => {
     try {
         const { InventarioID, auditor } = req.query;
         // console.log("Dentro getproductoscontadosporauditoreinv ", InventarioID, "-", auditor);
@@ -206,7 +206,7 @@ app.get("/getproductoscontadosporauditoreinv", async (req, res) => {
     }
 });
 
-app.get("/getproductoscontadosporauditorporlineaeinv", async (req, res) => {
+router.get("/getproductoscontadosporauditorporlineaeinv", async (req, res) => {
     try {
         const { InventarioID, Linea, auditor } = req.query;
         // console.log("Dentro getproductoscontadosporauditorporlineaeinv ", InventarioID, "-", Linea, "-", auditor);
@@ -224,7 +224,7 @@ app.get("/getproductoscontadosporauditorporlineaeinv", async (req, res) => {
     }
 });
 
-app.get("/getdetallelinea", async (req, res) => {
+router.get("/getdetallelinea", async (req, res) => {
     try {
         const { InventarioID, Linea, auditor } = req.query;
         // console.log("Endpoint getdetallelinea", InventarioID, "-", Linea, "--", auditor);

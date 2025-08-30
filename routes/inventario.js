@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require('../database.js'); // Importa tu pool de conexiones
 
 
-app.get("/getclaves", async (req, res) => {
+router.get("/getclaves", async (req, res) => {
     try {
         const rfc = req.query.rfc;
         
@@ -20,7 +20,7 @@ app.get("/getclaves", async (req, res) => {
     }
 });
 
-app.get("/getclavesnoreg", async (req, res) => {
+router.get("/getclavesnoreg", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query('SELECT clave, claveProveedor, nombre, sucursal, factura, fecha, estatus FROM clavesnoregistradasview WHERE estatus="Pendiente" ORDER BY fecha');
@@ -35,7 +35,7 @@ app.get("/getclavesnoreg", async (req, res) => {
     }
 });
 
-app.get("/getclavesPuntuales", async (req, res) => {
+router.get("/getclavesPuntuales", async (req, res) => {
     try {
         const { productos, rfc } = req.query;
 
@@ -65,7 +65,7 @@ app.get("/getclavesPuntuales", async (req, res) => {
     }
 });
 
-app.get("/getfamilias", async (req, res) => {
+router.get("/getfamilias", async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT DISTINCT familia FROM margenes order by familia');
         res.send(rows);
@@ -75,7 +75,7 @@ app.get("/getfamilias", async (req, res) => {
     }
 })
 
-app.get("/getSolSiembra", async (req, res) => {
+router.get("/getSolSiembra", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query('SELECT cantidad, clave, observaciones, sucursal, fecha FROM faltantesview ORDER BY fecha');
@@ -90,7 +90,7 @@ app.get("/getSolSiembra", async (req, res) => {
     }
 });
 
-app.post("/insertClaveManualNoRegistrada", async (req, res) => {
+router.post("/insertClaveManualNoRegistrada", async (req, res) => {
     try {
         const clave = req.body.clave;
         const sucursal = req.body.sucursal;
@@ -117,7 +117,7 @@ app.post("/insertClaveManualNoRegistrada", async (req, res) => {
     }
 });
 
-app.post("/insertarSiembra", async (req, res) => {
+router.post("/insertarSiembra", async (req, res) => {
     try {
         const data = req.body;
         const queries = [];

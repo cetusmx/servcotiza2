@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require('../database.js'); // Asegúrate de que esta es la ruta correcta a tu archivo db
 
-app.get("/getmargen", async (req, res) => {
+router.get("/getmargen", async (req, res) => {
     try {
         const { familia, sucursal } = req.query;
         // console.log("getmargen ", familia, "-", sucursal);
@@ -20,7 +20,7 @@ app.get("/getmargen", async (req, res) => {
     }
 });
 
-app.post("/insertarMargenes", async (req, res) => {
+router.post("/insertarMargenes", async (req, res) => {
     try {
         const margenes = req.body;
 
@@ -46,7 +46,7 @@ app.post("/insertarMargenes", async (req, res) => {
     }
 });
 
-app.get("/margenes", async (req, res) => {
+router.get("/margenes", async (req, res) => {
     try {
         // Ejecuta la consulta y espera a que termine
         const [rows] = await pool.query('SELECT * FROM margenes');
@@ -61,7 +61,7 @@ app.get("/margenes", async (req, res) => {
     }
 });
 
-app.put("/actualiza", async (req, res) => {
+router.put("/actualiza", async (req, res) => {
     console.log(req.body);
 
     const { fa, du, fr, ma, za, te, my, cambios } = req.body;
@@ -98,7 +98,7 @@ app.put("/actualiza", async (req, res) => {
     }
 });
 
-app.post("/updateMargenes", async (req, res) => {
+router.post("/updateMargenes", async (req, res) => {
     console.log(req.body);
 
     const data = req.body;
@@ -131,7 +131,7 @@ app.post("/updateMargenes", async (req, res) => {
     }
 });
 
-app.post("/borrarMargenes", async (req, res) => {
+router.post("/borrarMargenes", async (req, res) => {
     try {
         const sucursal = req.query.sucursal;
 
